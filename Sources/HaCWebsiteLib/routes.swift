@@ -27,6 +27,12 @@ func getWebsiteRouter() -> Router {
 
   // MARK: Features in progress
   router.get("/beta/landing-update-feed", handler: LandingUpdateFeedController.handler)
+  router.get("/beta/workshops") { _, response, next in
+    try response.send(
+      UI.Pages.workshops(workshops: WorkshopManager.workshops).render()
+    ).end()
+    next()
+  }
 
   router.all("/", middleware: NotFoundMiddleware())
 
